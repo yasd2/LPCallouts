@@ -16,6 +16,8 @@ namespace LPCallouts.Internals
 {
     public class GameHandler
     {
+        public static String ini_language { get; set; }
+
         public static string ini_division_p { get; set; }
         public static string ini_unittype_p { get; set; }
         public static string ini_beat_p { get; set; }
@@ -65,6 +67,22 @@ namespace LPCallouts.Internals
         public static void GetIniValues()
         {
             InitializationFile ini = initialiseFile();
+
+            #region general
+            //CHECK IF DIVISION IS BETWEEN 1 and 10
+            string lang = ini.ReadString("GENERAL", "Language", "english");
+            if (string.IsNullOrWhiteSpace(lang))
+            {
+                Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Language~w~ is empty, default value loaded");
+                Game.LogTrivial("~r~LPCallouts~w~ ini file error: ~y~Language~w~ is empty, default value loaded");
+            }
+            else
+            { 
+                ini_language = lang;
+                
+                Game.LogTrivial("LPCallouts: Language set to " + ini_language);
+            }
+            #endregion general
 
             #region division
             //CHECK IF DIVISION IS BETWEEN 1 and 10

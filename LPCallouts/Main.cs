@@ -10,6 +10,7 @@ using Rage.Native;
 using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Engine.Scripting.Entities;
 using System.Drawing;
+using LPCallouts.Translations;
 
 namespace LPCallouts
 {
@@ -32,19 +33,29 @@ namespace LPCallouts
             _nc_rerun = false;
             _nc_id = 0;
 
-            Game.RawFrameRender += Game_RawFrameRender;
+            //Game.RawFrameRender += Game_RawFrameRender;
 
             //LOAD INI CONTENT
             try
             {
                 GameHandler.GetIniValues();
             }
-            catch
+            catch (Exception e)
             {
-                ErrorHandler.LogMessage("INI file could not be loaded", 994);
+                ErrorHandler.LogMessage("INI file could not be loaded " + e, 994);
             }
-            //CHECK CUSTOM MODEL SUPPORT
 
+            // Translation
+            try
+            {
+                Translation.LoadXmlsForLanguage();
+            }
+            catch (Exception e)
+            {
+                ErrorHandler.LogMessage("Translation could not be loaded: " + e, 999);
+            }
+
+            //CHECK CUSTOM MODEL SUPPORT
             try
             {
                 if (GameHandler.ini_custommodels == true)
@@ -67,12 +78,13 @@ namespace LPCallouts
             {
                 ErrorHandler.LogMessage("Content not loaded", 991);
             }
+
             //INIT PLUGIN
             try
             {
                 Functions.OnOnDutyStateChanged += Functions_OnOnDutyStateChanged;
                 Game.LogTrivial("LPCallouts registered.");
-                Game.DisplayNotification("crosstheline", "timer_largetick_32", "Successful loaded", "~o~LPCallouts ~c~Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(), "");
+                Game.DisplayNotification("crosstheline", "timer_largetick_32", "Successfully loaded", "~o~LPCallouts ~c~Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(), "");
                 _plugin_loaded = true;
             }
             catch
@@ -119,7 +131,7 @@ namespace LPCallouts
 
                     //Get Playear character name
                     _UserData = Functions.GetPersonaForPed(Game.LocalPlayer.Character);
-                    Globals.CharacterName = _UserData.Forename + " " + _UserData.Surname;
+                    //Globals.CharacterName = _UserData.Forename + " " + _UserData.Surname;
                 }
             }
         }

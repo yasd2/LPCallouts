@@ -1,14 +1,15 @@
-﻿using System;
+﻿using LPCallouts.Translations;
+using LSPD_First_Response.Mod.API;
+//LSPDFR
+using Rage;
+using Rage.Native;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Forms;
 using System.Text.RegularExpressions;
-//LSPDFR
-using Rage;
-using Rage.Native;
-using LSPD_First_Response.Mod.API;
+using System.Windows.Forms;
 
 namespace LPCallouts.Internals
 {
@@ -112,13 +113,13 @@ namespace LPCallouts.Internals
                 GameFiber.Wait(2000);
                 Functions.PlayScannerAudio("DISP_ATTENTION_UNIT_02 DIV_" + GameHandler.ini_division_p + " " + GameHandler.ini_unittype_p + " BEAT_" + GameHandler.ini_beat_p);
                 GameFiber.Wait(6000);
-                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ 10-4, go ahead.");
+                Game.DisplayNotification("~b~" + Globals.CharacterName + FiberHandlerTranslation.TEXT[0]/*":~w~ 10-4, go ahead."*/);
                 GameFiber.Wait(2000);
-                GameHandler.DispatchMessage("Stolen Vehicle was found by another unit.");
+                GameHandler.DispatchMessage(FiberHandlerTranslation.TEXT[1]/*"Stolen Vehicle was found by another unit."*/);
                 GameFiber.Wait(5000);
-                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ 10-4. Can you give me the location?");
+                Game.DisplayNotification("~b~" + Globals.CharacterName + FiberHandlerTranslation.TEXT[2]/*":~w~ 10-4. Can you give me the location?"*/);
                 GameFiber.Wait(5000);
-                GameHandler.DispatchMessage("10-4. Showing you 10-76. Respond Code 2.");
+                GameHandler.DispatchMessage(FiberHandlerTranslation.TEXT[3]/*"10-4. Showing you 10-76. Respond Code 2."*/);
                 Marker.Alpha = 1.0f;
                 Marker.EnableRoute(System.Drawing.Color.Orange);
             }, FiberHandler._fiber_request);
@@ -133,13 +134,13 @@ namespace LPCallouts.Internals
                 GameFiber.Wait(2000);
                 Functions.PlayScannerAudio("DISP_ATTENTION_UNIT_02 DIV_" + GameHandler.ini_division_p + " " + GameHandler.ini_unittype_p + " BEAT_" + GameHandler.ini_beat_p);
                 GameFiber.Wait(4000);
-                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ 10-4, go ahead.");
+                Game.DisplayNotification("~b~" + Globals.CharacterName + FiberHandlerTranslation.TEXT[4]/*":~w~ 10-4, go ahead."*/);
                 GameFiber.Wait(2000);
-                GameHandler.DispatchMessage("We have 10-38 with a vehicle matching your description.");
+                GameHandler.DispatchMessage(FiberHandlerTranslation.TEXT[5]/*"We have 10-38 with a vehicle matching your description."*/);
                 GameFiber.Wait(5000);
-                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ 10-4. Can you give me the location?");
+                Game.DisplayNotification("~b~" + Globals.CharacterName + FiberHandlerTranslation.TEXT[6]/*":~w~ 10-4. Can you give me the location?"*/);
                 GameFiber.Wait(5000);
-                GameHandler.DispatchMessage("10-4. Showing you 10-76. Respond Code 3.");
+                GameHandler.DispatchMessage(FiberHandlerTranslation.TEXT[7]/*"10-4. Showing you 10-76. Respond Code 3."*/);
                 Marker = new Blip(Position);
                 Marker.Color = Color.Blue;
                 Marker.Alpha = 1.0f;
@@ -153,8 +154,7 @@ namespace LPCallouts.Internals
             bool Enable = Talking;
             GameFiber.StartNew(delegate
             {
-                Game.DisplaySubtitle("Talk to the officer by pressing ~o~'" + GameHandler.ini_action.ToString() + "", 5000);
-                NativeFunction.CallByName<ulong>("TASK_LEAVE_VEHICLE", Person, Car, 256);
+                Game.DisplaySubtitle(AssistAvoidDrifterTranslation.TEXT[0].Replace("{0}", $"~o~'{GameHandler.ini_action.ToString()}'~w~")/*"Talk to the officer by pressing ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to gain information about the accident."*/, GameHandler.ini_displaytime); NativeFunction.CallByName<ulong>("TASK_LEAVE_VEHICLE", Person, Car, 256);
                 GameFiber.Wait(2000);
                 Globals.SuspectPositions _gotopos = Suspects.SuspectPositions.First(t => t._id == PositionID && t._type == Globals.PositionType.PED_UNIT);
                 Person.Tasks.GoStraightToPosition(_gotopos._position, 1.0f, _gotopos._heading, 2f, 3800);

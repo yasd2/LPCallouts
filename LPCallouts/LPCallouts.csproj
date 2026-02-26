@@ -9,7 +9,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LPCallouts</RootNamespace>
     <AssemblyName>LPCallouts</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <LangVersion>latest</LangVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SccProjectName>
@@ -64,13 +65,13 @@
       <HintPath>..\GTA_Resources\Bass.Net.dll</HintPath>
     </Reference>
     <Reference Include="LSPD First Response">
-      <HintPath>..\GTA_Resources\LSPD First Response.dll</HintPath>
+      <HintPath>..\..\..\yasd2\MCCallouts-Ko-fi\References\LSPD First Response.dll</HintPath>
     </Reference>
-    <Reference Include="RAGENativeUI">
-      <HintPath>..\GTA_Resources\RAGENativeUI.dll</HintPath>
+    <Reference Include="RAGENativeUI, Version=1.9.3.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\RAGENativeUI.1.9.3\lib\net472\RAGENativeUI.dll</HintPath>
     </Reference>
-    <Reference Include="RagePluginHookSDK">
-      <HintPath>..\GTA_Resources\RagePluginHookSDK.dll</HintPath>
+    <Reference Include="RagePluginHook, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\RagePluginHook.1.124.0\lib\net472\RagePluginHook.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -115,6 +116,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Translations\Callouts\AssistBeachTranslation.cs" />
+    <Compile Include="Translations\Callouts\AssistCornerCutTranslation.cs" />
+    <Compile Include="Translations\Callouts\AssistCyclistTranslation.cs" />
+    <Compile Include="Translations\Callouts\AssistRunOverTranslation.cs" />
+    <Compile Include="Translations\Callouts\NoiseComplaintTranslation.cs" />
+    <Compile Include="Translations\ContentDefinitions\26_30.cs" />
+    <Compile Include="Translations\ContentDefinitions\11_15.cs" />
+    <Compile Include="Translations\ContentDefinitions\01_05.cs" />
+    <Compile Include="Translations\ContentDefinitions\06_10.cs" />
+    <Compile Include="Translations\ContentDefinitions\16_20.cs" />
+    <Compile Include="Translations\ContentDefinitions\21_25.cs" />
+    <Compile Include="Translations\ContentDefinitions\31_35.cs" />
+    <Compile Include="Translations\ContentDefinitions\36_37.cs" />
+    <Compile Include="Translations\Callouts\AssistAvoidDrifterTranslation.cs" />
+    <Compile Include="Translations\Other\DispatchTranslation.cs" />
+    <Compile Include="Translations\Other\FiberHandlerTranslation.cs" />
+    <Compile Include="Translations\Other\SuspectDialogueTranslation.cs" />
+    <Compile Include="Translations\Other\SuspectHandlerTranslation.cs" />
+    <Compile Include="Translations\_Translation.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -123,6 +143,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ContentDefinitionsBackup.txt" />
     <Content Include="ContentTemplates\ContentDefinitions.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ContentDefinitions.cs</LastGenOutput>
@@ -135,10 +156,13 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Program Files\Rockstar Games\Grand Theft Auto V Legacy\Plugins\LSPDFR
+copy /Y "$(TargetDir)$(ProjectName).pdb" "C:\Program Files\Rockstar Games\Grand Theft Auto V Legacy\Plugins\LSPDFR</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

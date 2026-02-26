@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Drawing;
-//LPC
+﻿//LPC
 using LPCallouts.Externals;
 using LPCallouts.Internals;
+using LPCallouts.Translations;
+using LSPD_First_Response.Engine.Scripting.Entities;
+using LSPD_First_Response.Mod.API;
+using LSPD_First_Response.Mod.Callouts;
 //LSPDFR
 using Rage;
 using Rage.Native;
-using LSPD_First_Response.Mod.API;
-using LSPD_First_Response.Mod.Callouts;
-using LSPD_First_Response.Engine.Scripting.Entities;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 
 namespace LPCallouts.Callouts
 {
@@ -131,7 +132,7 @@ namespace LPCallouts.Callouts
             {
                 ShowCalloutAreaBlipBeforeAccepting(_ve3_poi, 50f);
 
-                CalloutMessage = "Assistance required";
+                CalloutMessage = AssistCyclistTranslation.CALLOUTMESSAGE; // "Assistance required";
                 CalloutPosition = _ve3_poi;
 
                 GameHandler.DispatchAudio(_area._area, 1);
@@ -259,7 +260,7 @@ namespace LPCallouts.Callouts
                         break;
                     case Globals.CalloutEnd.TRAFFICSTOP:
 
-                        #region spawn supsect vehicle
+                        #region spawn suspect vehicle
                         try
                         {
                             SuspectHandler.SpawnVehicle(out Vehicle tmpcar, out int _position_id, _area._region, ref _blip_suspect, _blip_list, endingvariant);
@@ -438,7 +439,7 @@ namespace LPCallouts.Callouts
 
                         if (Game.LocalPlayer.Character.DistanceTo(_ve3_poi) < 50f)
                         {
-                            Game.DisplaySubtitle("Talk to the officer and witnesses by pressing ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to gain information about the accident.", GameHandler.ini_displaytime);
+                            Game.DisplaySubtitle(AssistCyclistTranslation.TEXT[0].Replace("{0}", $"~o~'{GameHandler.ini_action.ToString()}'~w~")/*"Talk to the officer and witnesses by pressing ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to gain information about the accident."*/, GameHandler.ini_displaytime);
                             _blip_poi.DisableRoute();
                             GameHandler.RemoveBlip(_blip_poi, _blip_list);
                             _blip_cop = _ped_cop.AttachBlip();
@@ -480,7 +481,7 @@ namespace LPCallouts.Callouts
                         {
                             if (suspectending == Globals.PursuitEnd.PURSUIT && _pursuitcreated == false && _isarrested == false && _getintocar == false && Game.LocalPlayer.Character.DistanceTo(_ped_suspect.Position) < 100f && Game.LocalPlayer.Character.LastVehicle.IsSirenOn && !Game.LocalPlayer.Character.LastVehicle.IsSirenSilent)
                             {
-                                Game.DisplaySubtitle("Suspect had heard your sirens and is fleeing their home.", GameHandler.ini_displaytime);
+                                Game.DisplaySubtitle(AssistRunOverTranslation.TEXT[8]/*"Suspect had heard your sirens and is fleeing their home."*/, GameHandler.ini_displaytime);
                                 _ped_suspect.Tasks.ClearImmediately();
                                 _ped_suspect.Tasks.EnterVehicle(_veh_suspect, 10000, -1);
                                 _getintocar = true;

@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Drawing;
-using System.Windows.Forms;
-//LPC
+﻿//LPC
 using LPCallouts.Externals;
 using LPCallouts.Internals;
+using LPCallouts.Translations;
+using LSPD_First_Response.Engine.Scripting.Entities;
+using LSPD_First_Response.Mod.API;
+using LSPD_First_Response.Mod.Callouts;
 //LSPDFR
 using Rage;
 using Rage.Native;
-using LSPD_First_Response.Mod.API;
-using LSPD_First_Response.Mod.Callouts;
-using LSPD_First_Response.Engine.Scripting.Entities;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 
 namespace LPCallouts.Callouts
@@ -163,7 +164,7 @@ namespace LPCallouts.Callouts
             {
                 ShowCalloutAreaBlipBeforeAccepting(_ve3_poi, 50f);
 
-                CalloutMessage = "Assistance required";
+                CalloutMessage = AssistCyclistTranslation.CALLOUTMESSAGE; // "Assistance required";
                 CalloutPosition = _ve3_poi;
 
                 GameHandler.DispatchAudio(_area._area, 1);
@@ -470,7 +471,7 @@ namespace LPCallouts.Callouts
 
                         if (Game.LocalPlayer.Character.DistanceTo(_ve3_poi) < 50f)
                         {
-                            Game.DisplaySubtitle("Talk to the officer and witnesses by pressing ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to gain information about the accident.", GameHandler.ini_displaytime);
+                            Game.DisplaySubtitle(AssistCyclistTranslation.TEXT[0].Replace("{0}", $"~o~'{GameHandler.ini_action.ToString()}'~w~")/*"Talk to the officer and witnesses by pressing ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to gain information about the accident."*/, GameHandler.ini_displaytime);
                             GameHandler.RemoveBlip(_blip_poi, _blip_list);
                             _blip_cop = _ped_cop.AttachBlip();
                             _blip_cop.Color = Color.Blue;
@@ -503,8 +504,8 @@ namespace LPCallouts.Callouts
                                 _player_at_scene = false;
                                 _selection = false;
                                 _selectedarea = 0;
-                                Game.DisplaySubtitle("You are heading to ~g~" + _street01, GameHandler.ini_displaytime);
-                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ Dispatch, Heading to ~g~" + _street01);
+                                Game.DisplaySubtitle(/*"You are heading to*/ AssistRunOverTranslation.TEXT[0] +" ~g~" + _street01, GameHandler.ini_displaytime);
+                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ "+ AssistRunOverTranslation.TEXT[1] +/*Dispatch, Heading to */" ~g~" + _street01);
                                 _blip_area1.EnableRoute(System.Drawing.Color.LightBlue);
 
                                 SendBackUp(1, 2);
@@ -523,8 +524,8 @@ namespace LPCallouts.Callouts
                                 _player_at_scene = false;
                                 _selection = false;
                                 _selectedarea = 1;
-                                Game.DisplaySubtitle("You are heading to ~p~" + _street02, GameHandler.ini_displaytime);
-                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ Dispatch, 10-76 to ~p~" + _street02);
+                                Game.DisplaySubtitle(AssistRunOverTranslation.TEXT[0]/*"You are heading to */+ " ~p~" + _street02, GameHandler.ini_displaytime);
+                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ " + AssistRunOverTranslation.TEXT[2] /*Dispatch, 10-76 to*/+ " ~p~" + _street02);
                                 _blip_area2.EnableRoute(System.Drawing.Color.LightBlue);
 
                                 SendBackUp(0, 2);
@@ -543,8 +544,8 @@ namespace LPCallouts.Callouts
                                 _player_at_scene = false;
                                 _selection = false;
                                 _selectedarea = 2;
-                                Game.DisplaySubtitle("You are heading to ~y~" + _street03, GameHandler.ini_displaytime);
-                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ Dispatch, 10-76 to ~y~" + _street03);
+                                Game.DisplaySubtitle(AssistRunOverTranslation.TEXT[0]/*"You are heading to*/ +" ~y~" + _street03, GameHandler.ini_displaytime);
+                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ "+ AssistRunOverTranslation.TEXT[2] /*Dispatch, 10-76 to*/ +" ~y~" + _street03);
                                 _blip_area3.EnableRoute(System.Drawing.Color.LightBlue);
 
                                 SendBackUp(0, 1);
@@ -586,7 +587,7 @@ namespace LPCallouts.Callouts
                         {
                             if (_terminate == false)
                             {
-                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ Dispatch, 10-23, I will make contact with the person");
+                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ "+ AssistRunOverTranslation.TEXT[3]/*Dispatch, 10-23, I will make contact with the person"*/);
                                 _terminate = true;
                                 switch (_selectedarea)
                                 {
@@ -616,7 +617,7 @@ namespace LPCallouts.Callouts
                                 {
                                     GameFiber.Wait(3000);
                                     statusmachine = Globals.PlayerState.TO_SUSPECT;
-                                    GameHandler.DispatchMessage("10-4.");
+                                    GameHandler.DispatchMessage(AssistRunOverTranslation.TEXT[4]);//"10-4.");
                                     Functions.PlayScannerAudio("REPORT_RESPONSE_COPY_01 PROCEED_WITH_CAUTION_ASSORTED");
                                 }, FiberHandler._fiber_request);
                             }
@@ -633,7 +634,7 @@ namespace LPCallouts.Callouts
                             {
                                 _assist01 = false;
                                 _terminate = true;
-                                Game.DisplayNotification("~b~" +_BackUpUnit01+ "~w~ Dispatch, we're at the residence. Possible suspect located.");
+                                Game.DisplayNotification("~b~" +_BackUpUnit01+ "~w~ "+ AssistRunOverTranslation.TEXT[5]/*Dispatch, we're at the residence. Possible suspect located."*/);
                                 Functions.PlayScannerAudio("REPORT_SUSPECT_SPOTTED_01");
 
                                 _veh_backup1.SetPositionWithSnap(_suspect_area[_handover1]._police_position);
@@ -656,7 +657,7 @@ namespace LPCallouts.Callouts
                             {
                                 _assist02 = false;
                                 _terminate = true;
-                                Game.DisplayNotification("~b~" + _BackUpUnit02 + "~w~ Dispatch, we're at the residence. Possible suspect located.");
+                                Game.DisplayNotification("~b~" + _BackUpUnit02 + "~w~ " + AssistRunOverTranslation.TEXT[5]);// Dispatch, we're at the residence. Possible suspect located.");
                                 Functions.PlayScannerAudio("REPORT_SUSPECT_SPOTTED_01");
 
                                 _veh_backup2.SetPositionWithSnap(_suspect_area[_handover2]._police_position);
@@ -690,9 +691,9 @@ namespace LPCallouts.Callouts
                             }
                             GameFiber.StartNew(delegate
                             {
-                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ Dispatch, nobody is home or i'm at the wrong adress.");
+                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ " + AssistRunOverTranslation.TEXT[6]/*Dispatch, nobody is home or i'm at the wrong adress."*/);
                                 Functions.PlayScannerAudio("REPORT_RESPONSE_COPY_04");
-                                GameHandler.DispatchMessage("10-4, wait for further instructions.");
+                                GameHandler.DispatchMessage(AssistRunOverTranslation.TEXT[7]);//"10-4, wait for further instructions.");
                             }, FiberHandler._fiber_request);
                         }
                         #endregion player at location with no suspect
@@ -737,7 +738,7 @@ namespace LPCallouts.Callouts
                         {
                             if (suspectending == Globals.PursuitEnd.PURSUIT && _pursuitcreated == false && _isarrested == false && _getintocar == false && Game.LocalPlayer.Character.DistanceTo(_ped_suspect.Position) < 100f && Game.LocalPlayer.Character.LastVehicle.IsSirenOn && !Game.LocalPlayer.Character.LastVehicle.IsSirenSilent)
                             {
-                                Game.DisplaySubtitle("Suspect had heard your sirens and is fleeing their home.", GameHandler.ini_displaytime);
+                                Game.DisplaySubtitle(AssistRunOverTranslation.TEXT[8]/*"Suspect had heard your sirens and is fleeing their home."*/, GameHandler.ini_displaytime);
                                 _ped_suspect.Tasks.ClearImmediately();
                                 _ped_suspect.Tasks.EnterVehicle(_veh_suspect, 10000, -2);
                                 _getintocar = true;
@@ -1035,7 +1036,7 @@ namespace LPCallouts.Callouts
                         _mlog_loop2 = 3;
                         break;
                     case 3:
-                        GameHandler.PlayerChat(3, "A ~y~" + _veh_suspect.Model.Name + Dialog, GameHandler.ini_displaytime);
+                        GameHandler.PlayerChat(3, AssistCyclistTranslation.TEXT[2]/*"A*/ +" ~y~" + _veh_suspect.Model.Name + Dialog, GameHandler.ini_displaytime);
                         _mlog_loop2 = 4;
                         break;
                     case 4:
@@ -1149,7 +1150,7 @@ namespace LPCallouts.Callouts
                 _veh_backup1.IsSirenSilent = true;
                 _assist01 = true;
                 Functions.PlayScannerAudio("REPORT_RESPONSE_COPY_04");
-                GameHandler.DispatchMessage("10-24 , sending additional units to the other locations.");
+                GameHandler.DispatchMessage(AssistRunOverTranslation.TEXT[9]);//"10-24, sending additional units to the other locations.");
                 GameFiber.Wait(3000);
                 Functions.PlayScannerAudio("DISP_ATTENTION_UNIT_01 DIV_" + GameHandler.ini_division_1 + " " + GameHandler.ini_unittype_1 + " BEAT_" + GameHandler.ini_beat_1 + " ASSISTANCE_REQUIRED_02");
                 _blip_backup1.Alpha = 1.0f;
@@ -1204,7 +1205,7 @@ namespace LPCallouts.Callouts
                         }
                         else
                         {
-                            Game.DisplayNotification("~b~" + _BackUpUnit01 + "~w~ Dispatch, 10-23, No match, 10-19 returning to patrol");
+                            Game.DisplayNotification("~b~" + _BackUpUnit01 + "~w~ " + AssistRunOverTranslation.TEXT[10]);//Dispatch, 10-23, No match, 10-19 returning to patrol");
                             GameFiber.Wait(3000);
                             Functions.PlayScannerAudio("REPORT_RESPONSE_COPY_01 DIV_" + GameHandler.ini_division_1 + " " + GameHandler.ini_unittype_1 + " BEAT_" + GameHandler.ini_beat_1 + " PROCEED_WITH_PATROL");
                         }
@@ -1216,7 +1217,7 @@ namespace LPCallouts.Callouts
                         }
                         else
                         {
-                            Game.DisplayNotification("~b~" + _BackUpUnit02 + "~w~ Dispatch, 10-23, No match, 10-19 returning to patrol");
+                            Game.DisplayNotification("~b~" + _BackUpUnit02 + "~w~ " + AssistRunOverTranslation.TEXT[10]);//Dispatch, 10-23, No match, 10-19 returning to patrol");
                             GameFiber.Wait(3000);
                             Functions.PlayScannerAudio("REPORT_RESPONSE_COPY_02 DIV_" + GameHandler.ini_division_2 + " " + GameHandler.ini_unittype_2 + " BEAT_" + GameHandler.ini_beat_2 + " PROCEED_WITH_PATROL");
                         }

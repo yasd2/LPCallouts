@@ -13,6 +13,7 @@ using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Mod.Callouts;
 //External
 using Un4seen.Bass;
+using LPCallouts.Translations;
 
 
 namespace LPCallouts.Callouts
@@ -32,6 +33,9 @@ namespace LPCallouts.Callouts
 
     class NoiseComplaint : Callout
     {
+        GameFiber GF_Test;
+        float volume;
+
         public Globals.Scenery _area;
         public Globals.Dialogs _dialog;
         public List<Globals.Positions> _waypoints;
@@ -121,7 +125,7 @@ namespace LPCallouts.Callouts
                 AddMinimumDistanceCheck(20f, _ve3_poi);
                 ShowCalloutAreaBlipBeforeAccepting(_ve3_poi, 50f);
 
-                CalloutMessage = "Disturbance";
+                CalloutMessage = NoiseComplaintTranslation.CALLOUTMESSAGE;//"Disturbance";
                 CalloutPosition = _ve3_poi;
 
                 GameHandler.DispatchAudio(_area._area, 2);
@@ -151,17 +155,17 @@ namespace LPCallouts.Callouts
 
             if (Main._nc_rerun == false || Main._nc_id == 0)
             {
-                GameHandler.DispatchMessage("Caller is waiting at " + _area._street + ".");
+                GameHandler.DispatchMessage(NoiseComplaintTranslation.TEXT[0]/*"Caller is waiting at "*/ + " " + _area._street + ".");
             }
             else
             {
                 GameFiber.StartNew(delegate
                 {
-                    GameHandler.DispatchMessage("Location " + _area._street + ". It should be the party from before.");
+                    GameHandler.DispatchMessage(NoiseComplaintTranslation.TEXT[1].Replace("{0}", _area._street));//Location+" " + _area._street + ". It should be the party from before.");
                     GameFiber.Wait(2000);
-                    Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ 10-4. I will take care about this.");
+                    Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ " + NoiseComplaintTranslation.TEXT[2]);// 10-4. I will take care about this.");
                     GameFiber.Wait(2000);
-                    GameHandler.DispatchMessage("10-4.");
+                    GameHandler.DispatchMessage(NoiseComplaintTranslation.TEXT[3]);//"10-4.");
                     Functions.PlayScannerAudio("REPORT_RESPONSE_COPY_01 PROCEED_WITH_CAUTION_ASSORTED");
                 }, FiberHandler._fiber_request);
             }
@@ -356,7 +360,7 @@ namespace LPCallouts.Callouts
 
                         if (Game.LocalPlayer.Character.DistanceTo(_ped_caller.Position) < 50f)
                         {
-                            Game.DisplaySubtitle("Talk to the caller by pressing ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to gain information.", GameHandler.ini_displaytime);
+                            Game.DisplaySubtitle(NoiseComplaintTranslation.TEXT[4].Replace("{0}", "~o~'" + GameHandler.ini_action.ToString() + "'~w~")/*"Talk to the caller by pressing ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to gain information."*/, GameHandler.ini_displaytime);
                             if (_blip_caller.Exists()) { _blip_caller.DisableRoute(); }
 
                             if (Game.LocalPlayer.Character.DistanceTo(_ped_caller.Position) < 30f && _arrived_at_caller == false)
@@ -378,7 +382,7 @@ namespace LPCallouts.Callouts
                     case Globals.PlayerState.TO_SCENERY:
                         if (Game.LocalPlayer.Character.DistanceTo(_waypoints.First(t => t._type == Globals.PositionType.DOORBELL)._position) < 20f)
                         {
-                            Game.DisplaySubtitle("Step into the marker and press ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to ring the doorbell.", GameHandler.ini_displaytime);
+                            Game.DisplaySubtitle(NoiseComplaintTranslation.TEXT[5].Replace("{0}", "~o~'" + GameHandler.ini_action.ToString() + "'~w~")/*"Step into the marker and press ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to ring the doorbell."*/, GameHandler.ini_displaytime);
 
                             statusmachine = Globals.PlayerState.FRONTDOOR;
                         }
@@ -402,7 +406,7 @@ namespace LPCallouts.Callouts
                                 _marker_bell = false;
                                 if (_blip_bell.Exists()) { _blip_bell.Alpha = 0.0f; }
                                 GameFiber.Wait(3000);
-                                Game.DisplaySubtitle("No one has heard the doorbell. Check the backyard of this property!", GameHandler.ini_displaytime);
+                                Game.DisplaySubtitle(NoiseComplaintTranslation.TEXT[6]/*"No one has heard the doorbell. Check the backyard of this property!"*/, GameHandler.ini_displaytime);
                                 _blip_talk = new Blip(_waypoints.First(t => t._type == Globals.PositionType.BACKYARD)._position);
                                 _blip_talk.Color = Color.Aqua;
                                 _blip_list.Add(_blip_talk);
@@ -414,7 +418,7 @@ namespace LPCallouts.Callouts
                     case Globals.PlayerState.BACKYARD:
                         if (Game.LocalPlayer.Character.DistanceTo(_waypoints.First(t => t._type == Globals.PositionType.BACKYARD)._position) < 10f)
                         {
-                            Game.DisplaySubtitle("Step into the marker and press ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to talk.", GameHandler.ini_displaytime);
+                            Game.DisplaySubtitle(NoiseComplaintTranslation.TEXT[5].Replace("{0}", "~o~'" + GameHandler.ini_action.ToString() + "'~w~")/*"Step into the marker and press ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to ring the doorbell."*/, GameHandler.ini_displaytime);
                             statusmachine = Globals.PlayerState.SEARCHING;
                         }
                         break;
@@ -462,7 +466,7 @@ namespace LPCallouts.Callouts
                     case Globals.PlayerState.RERUN:
                         if (Game.LocalPlayer.Character.DistanceTo(_waypoints.First(t => t._type == Globals.PositionType.BACKYARD)._position) < 50f)
                         {
-                            Game.DisplaySubtitle("Go to the backyard and step into the marker. Press ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to talk.", GameHandler.ini_displaytime);
+                            Game.DisplaySubtitle(NoiseComplaintTranslation.TEXT[7].Replace("{0}", "~o~'" + GameHandler.ini_action.ToString() + "'~w~")/*"Go to the backyard and step into the marker. Press ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to talk."*/, GameHandler.ini_displaytime);
                             _blip_area.DisableRoute();
                             _marker_talk = true;
                             statusmachine = Globals.PlayerState.BACKYARD2;
@@ -503,13 +507,13 @@ namespace LPCallouts.Callouts
                 {
                     if (_playmusic == true)
                     {
-                        float volume = GameHandler.VolumeControl(Game.LocalPlayer.Character.DistanceTo(_waypoints.First(t => t._type == Globals.PositionType.MUSIC)._position), -0.43, _audio_music_control);
+                        volume = GameHandler.VolumeControl(Game.LocalPlayer.Character.DistanceTo(_waypoints.First(t => t._type == Globals.PositionType.MUSIC)._position), -0.43, _audio_music_control);
                         Bass.BASS_ChannelSetAttribute(_audio_music, BASSAttribute.BASS_ATTRIB_VOL, volume);
                     }
                     //VOLUMECONTROL AMBIENT
                     if (_playambient == true)
                     {
-                        float volume = GameHandler.VolumeControl(Game.LocalPlayer.Character.DistanceTo(_waypoints.First(t => t._type == Globals.PositionType.MUSIC)._position), -0.75, 20);
+                        volume = GameHandler.VolumeControl(Game.LocalPlayer.Character.DistanceTo(_waypoints.First(t => t._type == Globals.PositionType.MUSIC)._position), -0.75, 20);
                         Bass.BASS_ChannelSetAttribute(_audio_ambient, BASSAttribute.BASS_ATTRIB_VOL, volume);
                     }
 
@@ -525,6 +529,16 @@ namespace LPCallouts.Callouts
                     ErrorHandler.LogMessage("AudioControl was aborted!", 112);
                 }
                 #endregion volume control
+
+                if (GF_Test == null)
+                {
+                    GF_Test = GameFiber.ExecuteNewWhile(() =>
+                    {
+                        //Game.DisplaySubtitle($"volume: {volume}");
+                        GameFiber.Wait(1000);
+                    },
+                    () => this.AcceptanceState == CalloutAcceptanceState.Running);
+                }
 
                 #region marker control
                 //MARKER DOORBELL
@@ -768,11 +782,11 @@ namespace LPCallouts.Callouts
                         {
                             Globals.Humans _endtask = Content.HumanList.First(t => t._calloutid == _area._calloutid && t._id == 2);
                             GameFiber.Wait(2000);
-                            GameHandler.DispatchMessage("10-4. Proceed with Patrol");
+                            GameHandler.DispatchMessage(NoiseComplaintTranslation.TEXT[8]);//"10-4. Proceed with Patrol");
                             Functions.PlayScannerAudio("REPORT_RESPONSE_COPY_01 PROCEED_WITH_PATROL");
                             GameHandler.RemoveBlip(_blip_talk, _blip_list);
                             GameFiber.Wait(2000);
-                            Game.DisplayHelp("Leave the area");
+                            Game.DisplayHelp(NoiseComplaintTranslation.TEXT[9]);//"Leave the area");
                             _ped_owner.Tasks.GoStraightToPosition(_endtask._position, 1f, _endtask._heading, 1f, 10000);
                             GameHandler.PlayerChat(8, Content.DialogList.First(t => t._calloutid == _area._calloutid && t._contactid == 2 && t._counter == _mloop_owner + 1)._text, GameHandler.ini_displaytime);
                             GameFiber.Wait(4000);
@@ -891,7 +905,7 @@ namespace LPCallouts.Callouts
                                     GameHandler.PlayerChat(8, Content.DialogList.First(t => t._calloutid == _area._calloutid && t._contactid == 4 && t._counter == 3)._text, GameHandler.ini_displaytime);
                                     GameFiber.Wait(4000);
                                     _ped_owner.Tasks.PlayAnimation(_endtask._animdir, _endtask._animname, 1f, _endtask._animflag);
-                                    Game.DisplayHelp("Leave the area");
+                                    Game.DisplayHelp(NoiseComplaintTranslation.TEXT[9]);//"Leave the area");
                                     _mloop_owner = 11;
                                 }, FiberHandler._fiber_anim);
                                 break;
@@ -900,7 +914,7 @@ namespace LPCallouts.Callouts
                                 GameHandler.PlayerChat(8, Content.DialogList.First(t => t._calloutid == _area._calloutid && t._contactid == 5 && t._counter == 2)._text, GameHandler.ini_displaytime);
                                 GameFiber.StartNew(delegate
                                 {
-                                    Game.DisplaySubtitle("Arrest the owner and turn off the music by steping into the marker and press ~o~'" + GameHandler.ini_action.ToString(), GameHandler.ini_displaytime);
+                                    Game.DisplaySubtitle(NoiseComplaintTranslation.TEXT[10].Replace("{0}", "~o~'" + GameHandler.ini_action.ToString() + "'~w~")/*"Arrest the owner and turn off the music by steping into the marker and press ~o~'" + GameHandler.ini_action.ToString()*/, GameHandler.ini_displaytime);
                                     _marker_music = true;
                                     GameHandler.RemoveBlip(_blip_area, _blip_list);
                                     _blip_owner = _ped_owner.AttachBlip();

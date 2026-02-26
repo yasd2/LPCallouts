@@ -16,6 +16,7 @@ using Rage.Native;
 using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Mod.Callouts;
 using LSPD_First_Response.Engine.Scripting.Entities;
+using LPCallouts.Translations;
 
 namespace LPCallouts.Callouts
 {
@@ -136,7 +137,7 @@ namespace LPCallouts.Callouts
             {
                 ShowCalloutAreaBlipBeforeAccepting(_ve3_poi, 50f);
 
-                CalloutMessage = "Assistance required";
+                CalloutMessage = AssistAvoidDrifterTranslation.CALLOUTMESSAGE;//"Assistance required";
                 CalloutPosition = _ve3_poi;
 
                 GameHandler.DispatchAudio(_area._area, 1);
@@ -343,7 +344,7 @@ namespace LPCallouts.Callouts
 
                         if (Game.LocalPlayer.Character.DistanceTo(_ve3_poi) < 50f)
                         {
-                            Game.DisplaySubtitle("Talk to the officer by pressing ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to gain information about the accident.",GameHandler.ini_displaytime);
+                            Game.DisplaySubtitle(AssistAvoidDrifterTranslation.TEXT[0].Replace("{0}", $"~o~'{GameHandler.ini_action.ToString()}'~w~")/*"Talk to the officer by pressing ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to gain information about the accident."*/, GameHandler.ini_displaytime);
                             _blip_poi.DisableRoute();
                             GameHandler.RemoveBlip(_blip_poi, _blip_list);
                             _blip_cop = _ped_cop.AttachBlip();
@@ -390,15 +391,15 @@ namespace LPCallouts.Callouts
                                 GameFiber.Wait(2000);
                                 Functions.PlayScannerAudio("DISP_ATTENTION_UNIT_02 DIV_" + GameHandler.ini_division_p + " " + GameHandler.ini_unittype_p + " BEAT_" + GameHandler.ini_beat_p + " CITIZENS_REPORT_03 CRIME_HITRUN UNITS_RESPOND_CODE_02_01");
                                 GameFiber.Wait(6000);
-                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ 10-4, go ahead.");
+                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ " + AssistBeachTranslation.TEXT[1]/*10-4, go ahead."*/);
                                 GameFiber.Wait(2000);
                                 GameHandler.DispatchMessage(Content.DialogList.First(t => t._calloutid == _area._calloutid && t._contactid == 5)._text);
                                 GameFiber.Wait(5000);
-                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ 10-4. Can you give me the location of the caller?");
+                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ " + AssistBeachTranslation.TEXT[2]/*10-4. Can you give me the location of the caller?"*/);
                                 GameFiber.Wait(5000);
                                 uint _streethash = World.GetStreetHash(_ped_witness.Position);
                                 string _street = World.GetStreetName(_streethash);
-                                GameHandler.DispatchMessage("10-4. Showing you 10-76. Respond to ~y~" + _street + "~w~ Code 2.");
+                                GameHandler.DispatchMessage(/*"10-4. Showing you 10-76. Respond to {0} Code 2."*/AssistBeachTranslation.TEXT[3].Replace("{0}", $"~y~ { _street} ~w~"));
                                 _blip_witness.Alpha = 1.0f;
                                 _blip_witness.EnableRoute(System.Drawing.Color.Orange);
 
@@ -444,11 +445,11 @@ namespace LPCallouts.Callouts
                                 GameFiber.StartNew(delegate
                                 {
                                     _initaudio = true;
-                                    Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ Dispatch, possible suspect identified");
+                                    Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ " + AssistBeachTranslation.TEXT[4]/*Dispatch, possible suspect identified"*/);
                                     GameHandler.RemoveBlip(_blip_searcharea, _blip_list);
                                     _blip_suspect.Alpha = 1.0f;
                                     GameFiber.Wait(3000);
-                                    GameHandler.DispatchMessage("10-4.");
+                                    GameHandler.DispatchMessage(AssistBeachTranslation.TEXT[9]/*"10-4."*/);
                                     Functions.PlayScannerAudio("REPORT_RESPONSE_COPY_01 PROCEED_WITH_CAUTION_ASSORTED");
                                     _initaudio = true;
                                 }, FiberHandler._fiber_request);
@@ -460,7 +461,7 @@ namespace LPCallouts.Callouts
                         {
                             if (suspectending == Globals.PursuitEnd.PURSUIT && _pursuitcreated == false && _isarrested == false && _getintocar == false && Game.LocalPlayer.Character.DistanceTo(_ped_suspect.Position) < 100f && Game.LocalPlayer.Character.LastVehicle.IsSirenOn && !Game.LocalPlayer.Character.LastVehicle.IsSirenSilent)
                             {
-                                Game.DisplaySubtitle("Suspect had heard your sirens and is fleeing their home.", GameHandler.ini_displaytime);
+                                Game.DisplaySubtitle(/*"Suspect had heard your sirens and is fleeing their home."*/AssistBeachTranslation.TEXT[6], GameHandler.ini_displaytime);
                                 _ped_suspect.Tasks.ClearImmediately();
                                 _ped_suspect.Tasks.EnterVehicle(_veh_suspect, 10000, -2);
                                 _getintocar = true;
@@ -723,7 +724,7 @@ namespace LPCallouts.Callouts
                         _mlog_loop4 = 3;
                         break;
                     case 3:
-                        GameHandler.PlayerChat(3, "I believe it was a ~y~" + color1 + "/" + color2 + Dialog, GameHandler.ini_displaytime);
+                        GameHandler.PlayerChat(3, /*"I believe it was a */AssistBeachTranslation.TEXT[7] + " ~y~" + color1 + "/" + color2 + Dialog, GameHandler.ini_displaytime);
                         GameFiber.Wait(1000);
                         _mlog_loop4 = 4;
                         break;
@@ -736,9 +737,9 @@ namespace LPCallouts.Callouts
                         GameFiber.StartNew(delegate
                         {
                             GameFiber.Wait(2000);
-                            Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ Dispatch, heading to " + _suspect_location._areaname);
+                            Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ "+/*Dispatch, heading to*/AssistBeachTranslation.TEXT[8] + " " + _suspect_location._areaname);
                             GameFiber.Wait(3000);
-                            GameHandler.DispatchMessage("10-4.");
+                            GameHandler.DispatchMessage(AssistBeachTranslation.TEXT[9]);//"10-4.");
                             Functions.PlayScannerAudio("REPORT_RESPONSE_COPY_01 " + _suspect_location._audioarea);
                             GameFiber.Wait(3000);
                             _blip_searcharea = new Blip(_suspect_location._searcharea, 200f);

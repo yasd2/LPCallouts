@@ -56,7 +56,7 @@ namespace LPCallouts.Internals
     {
         public static string HitModel = "prop_sign_road_04r";
 
-        public static string CharacterName = "Undefined";
+        public static string CharacterName => Functions.GetPersonaForPed(Game.LocalPlayer.Character).FullName;
 
         #region Callout Classes
         public class Scenery
