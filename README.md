@@ -1,9 +1,8 @@
-# LPCallouts
-RPH_Callouts for LSPDFR
+# LPCallouts Remastered
 
-I wished that I have more time to develop the callouts further, but its simply not possible. Therefore I make my callouts public for everybody who wants to enhance their callout experience
+Original author: LowRid3R
+Original source code: https://github.com/CK-Paradox/LPCallouts
 
-If you use code from my Repo or Clone it for further dev, please keep the credits.
+Want to contribute translations? See https://github.com/yasd2/LPCallouts-Translations
 
-Thanks LowRid3R!
-Updated for LSPDFR 0.4.9 by Yasd
+Updated for LSPDFR 0.4.9, RPH 1.124 by Yasd
