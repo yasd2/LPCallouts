@@ -471,7 +471,7 @@ namespace LPCallouts.Callouts
 
                         if (Game.LocalPlayer.Character.DistanceTo(_ve3_poi) < 50f)
                         {
-                            Game.DisplaySubtitle(AssistCyclistTranslation.TEXT[0].Replace("{0}", $"~o~'{GameHandler.ini_action.ToString()}'~w~")/*"Talk to the officer and witnesses by pressing ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to gain information about the accident."*/, GameHandler.ini_displaytime);
+                            HudHelpers.DisplaySubtitle(AssistCyclistTranslation.TEXT[0].Replace("{0}", $"~o~'{GameHandler.ini_action.ToString()}'~w~")/*"Talk to the officer and witnesses by pressing ~o~'" + GameHandler.ini_action.ToString() + "'~w~ to gain information about the accident."*/, GameHandler.ini_displaytime);
                             GameHandler.RemoveBlip(_blip_poi, _blip_list);
                             _blip_cop = _ped_cop.AttachBlip();
                             _blip_cop.Color = Color.Blue;
@@ -504,8 +504,8 @@ namespace LPCallouts.Callouts
                                 _player_at_scene = false;
                                 _selection = false;
                                 _selectedarea = 0;
-                                Game.DisplaySubtitle(/*"You are heading to*/ AssistRunOverTranslation.TEXT[0] +" ~g~" + _street01, GameHandler.ini_displaytime);
-                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ "+ AssistRunOverTranslation.TEXT[1] +/*Dispatch, Heading to */" ~g~" + _street01);
+                                HudHelpers.DisplaySubtitle(/*"You are heading to*/ AssistRunOverTranslation.TEXT[0] +" ~g~" + _street01, GameHandler.ini_displaytime);
+                                HudHelpers.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ "+ AssistRunOverTranslation.TEXT[1] +/*Dispatch, Heading to */" ~g~" + _street01);
                                 _blip_area1.EnableRoute(System.Drawing.Color.LightBlue);
 
                                 SendBackUp(1, 2);
@@ -524,8 +524,8 @@ namespace LPCallouts.Callouts
                                 _player_at_scene = false;
                                 _selection = false;
                                 _selectedarea = 1;
-                                Game.DisplaySubtitle(AssistRunOverTranslation.TEXT[0]/*"You are heading to */+ " ~p~" + _street02, GameHandler.ini_displaytime);
-                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ " + AssistRunOverTranslation.TEXT[2] /*Dispatch, 10-76 to*/+ " ~p~" + _street02);
+                                HudHelpers.DisplaySubtitle(AssistRunOverTranslation.TEXT[0]/*"You are heading to */+ " ~p~" + _street02, GameHandler.ini_displaytime);
+                                HudHelpers.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ " + AssistRunOverTranslation.TEXT[2] /*Dispatch, 10-76 to*/+ " ~p~" + _street02);
                                 _blip_area2.EnableRoute(System.Drawing.Color.LightBlue);
 
                                 SendBackUp(0, 2);
@@ -544,8 +544,8 @@ namespace LPCallouts.Callouts
                                 _player_at_scene = false;
                                 _selection = false;
                                 _selectedarea = 2;
-                                Game.DisplaySubtitle(AssistRunOverTranslation.TEXT[0]/*"You are heading to*/ +" ~y~" + _street03, GameHandler.ini_displaytime);
-                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ "+ AssistRunOverTranslation.TEXT[2] /*Dispatch, 10-76 to*/ +" ~y~" + _street03);
+                                HudHelpers.DisplaySubtitle(AssistRunOverTranslation.TEXT[0]/*"You are heading to*/ +" ~y~" + _street03, GameHandler.ini_displaytime);
+                                HudHelpers.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ "+ AssistRunOverTranslation.TEXT[2] /*Dispatch, 10-76 to*/ +" ~y~" + _street03);
                                 _blip_area3.EnableRoute(System.Drawing.Color.LightBlue);
 
                                 SendBackUp(0, 1);
@@ -587,7 +587,7 @@ namespace LPCallouts.Callouts
                         {
                             if (_terminate == false)
                             {
-                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ "+ AssistRunOverTranslation.TEXT[3]/*Dispatch, 10-23, I will make contact with the person"*/);
+                                HudHelpers.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ "+ AssistRunOverTranslation.TEXT[3]/*Dispatch, 10-23, I will make contact with the person"*/);
                                 _terminate = true;
                                 switch (_selectedarea)
                                 {
@@ -634,7 +634,7 @@ namespace LPCallouts.Callouts
                             {
                                 _assist01 = false;
                                 _terminate = true;
-                                Game.DisplayNotification("~b~" +_BackUpUnit01+ "~w~ "+ AssistRunOverTranslation.TEXT[5]/*Dispatch, we're at the residence. Possible suspect located."*/);
+                                HudHelpers.DisplayNotification("~b~" +_BackUpUnit01+ "~w~ "+ AssistRunOverTranslation.TEXT[5]/*Dispatch, we're at the residence. Possible suspect located."*/);
                                 Functions.PlayScannerAudio("REPORT_SUSPECT_SPOTTED_01");
 
                                 _veh_backup1.SetPositionWithSnap(_suspect_area[_handover1]._police_position);
@@ -657,7 +657,7 @@ namespace LPCallouts.Callouts
                             {
                                 _assist02 = false;
                                 _terminate = true;
-                                Game.DisplayNotification("~b~" + _BackUpUnit02 + "~w~ " + AssistRunOverTranslation.TEXT[5]);// Dispatch, we're at the residence. Possible suspect located.");
+                                HudHelpers.DisplayNotification("~b~" + _BackUpUnit02 + "~w~ " + AssistRunOverTranslation.TEXT[5]);// Dispatch, we're at the residence. Possible suspect located.");
                                 Functions.PlayScannerAudio("REPORT_SUSPECT_SPOTTED_01");
 
                                 _veh_backup2.SetPositionWithSnap(_suspect_area[_handover2]._police_position);
@@ -691,7 +691,7 @@ namespace LPCallouts.Callouts
                             }
                             GameFiber.StartNew(delegate
                             {
-                                Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ " + AssistRunOverTranslation.TEXT[6]/*Dispatch, nobody is home or i'm at the wrong adress."*/);
+                                HudHelpers.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ " + AssistRunOverTranslation.TEXT[6]/*Dispatch, nobody is home or i'm at the wrong adress."*/);
                                 Functions.PlayScannerAudio("REPORT_RESPONSE_COPY_04");
                                 GameHandler.DispatchMessage(AssistRunOverTranslation.TEXT[7]);//"10-4, wait for further instructions.");
                             }, FiberHandler._fiber_request);
@@ -738,7 +738,7 @@ namespace LPCallouts.Callouts
                         {
                             if (suspectending == Globals.PursuitEnd.PURSUIT && _pursuitcreated == false && _isarrested == false && _getintocar == false && Game.LocalPlayer.Character.DistanceTo(_ped_suspect.Position) < 100f && Game.LocalPlayer.Character.LastVehicle.IsSirenOn && !Game.LocalPlayer.Character.LastVehicle.IsSirenSilent)
                             {
-                                Game.DisplaySubtitle(AssistRunOverTranslation.TEXT[8]/*"Suspect had heard your sirens and is fleeing their home."*/, GameHandler.ini_displaytime);
+                                HudHelpers.DisplaySubtitle(AssistRunOverTranslation.TEXT[8]/*"Suspect had heard your sirens and is fleeing their home."*/, GameHandler.ini_displaytime);
                                 _ped_suspect.Tasks.ClearImmediately();
                                 _ped_suspect.Tasks.EnterVehicle(_veh_suspect, 10000, -2);
                                 _getintocar = true;
@@ -904,7 +904,7 @@ namespace LPCallouts.Callouts
                 {
                     if (_talking_cop != true || _talking_witness != true)
                     {
-                        Game.DisplaySubtitle(GameHandler._usernotice);
+                        HudHelpers.DisplaySubtitle(GameHandler._usernotice);
                     }
                 }
                 #endregion
@@ -1205,7 +1205,7 @@ namespace LPCallouts.Callouts
                         }
                         else
                         {
-                            Game.DisplayNotification("~b~" + _BackUpUnit01 + "~w~ " + AssistRunOverTranslation.TEXT[10]);//Dispatch, 10-23, No match, 10-19 returning to patrol");
+                            HudHelpers.DisplayNotification("~b~" + _BackUpUnit01 + "~w~ " + AssistRunOverTranslation.TEXT[10]);//Dispatch, 10-23, No match, 10-19 returning to patrol");
                             GameFiber.Wait(3000);
                             Functions.PlayScannerAudio("REPORT_RESPONSE_COPY_01 DIV_" + GameHandler.ini_division_1 + " " + GameHandler.ini_unittype_1 + " BEAT_" + GameHandler.ini_beat_1 + " PROCEED_WITH_PATROL");
                         }
@@ -1217,7 +1217,7 @@ namespace LPCallouts.Callouts
                         }
                         else
                         {
-                            Game.DisplayNotification("~b~" + _BackUpUnit02 + "~w~ " + AssistRunOverTranslation.TEXT[10]);//Dispatch, 10-23, No match, 10-19 returning to patrol");
+                            HudHelpers.DisplayNotification("~b~" + _BackUpUnit02 + "~w~ " + AssistRunOverTranslation.TEXT[10]);//Dispatch, 10-23, No match, 10-19 returning to patrol");
                             GameFiber.Wait(3000);
                             Functions.PlayScannerAudio("REPORT_RESPONSE_COPY_02 DIV_" + GameHandler.ini_division_2 + " " + GameHandler.ini_unittype_2 + " BEAT_" + GameHandler.ini_beat_2 + " PROCEED_WITH_PATROL");
                         }

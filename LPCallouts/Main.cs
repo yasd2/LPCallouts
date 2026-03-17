@@ -84,7 +84,7 @@ namespace LPCallouts
             {
                 Functions.OnOnDutyStateChanged += Functions_OnOnDutyStateChanged;
                 Game.LogTrivial("LPCallouts registered.");
-                Game.DisplayNotification("crosstheline", "timer_largetick_32", "Successfully loaded", "~o~LPCallouts ~c~Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(), "");
+                HudHelpers.DisplayNotification("crosstheline", "timer_largetick_32", "Successfully loaded", "~o~LPCallouts ~c~Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(), "");
                 _plugin_loaded = true;
             }
             catch
@@ -127,7 +127,7 @@ namespace LPCallouts
                 RegisterCallouts();
                 if (_plugin_loaded)
                 {
-                    Game.DisplayNotification("web_lossantospolicedept", "web_lossantospolicedept", "LPCallouts Active", "", "");
+                    HudHelpers.DisplayNotification("web_lossantospolicedept", "web_lossantospolicedept", "LPCallouts Active", "", "");
 
                     //Get Playear character name
                     _UserData = Functions.GetPersonaForPed(Game.LocalPlayer.Character);

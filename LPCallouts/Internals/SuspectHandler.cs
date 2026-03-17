@@ -25,39 +25,39 @@ public class SuspectHandler
             {
                 case 0:
                     talking = true;
-                    Game.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
+                    HudHelpers.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
                     loop = 1;
                     break;
                 case 1:
-                    Game.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
+                    HudHelpers.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
                     loop = 2;
                     break;
                 case 2:
-                    Game.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
+                    HudHelpers.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
                     loop = 3;
                     break;
                 case 3:
-                    Game.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
+                    HudHelpers.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
                     loop = 4;
                     break;
                 case 4:
-                    Game.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
+                    HudHelpers.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
                     loop = 5;
                     break;
                 case 5:
-                    Game.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
+                    HudHelpers.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
                     loop = 6;
                     break;
                 case 6:
-                    Game.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
+                    HudHelpers.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
                     loop = 7;
                     break;
                 case 7:
-                    Game.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
+                    HudHelpers.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
                     loop = 8;
                     break;
                 case 8:
-                    Game.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
+                    HudHelpers.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
                     loop = 9;
                     break;
                 case 9:
@@ -70,7 +70,7 @@ public class SuspectHandler
                         switch (suspectending)
                         {
                             case Globals.PursuitEnd.PURSUIT:
-                                Game.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
+                                HudHelpers.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
                                 if (!pursuitcreated && Game.LocalPlayer.Character.DistanceTo(ped_suspect.Position) < 30f)
                                 {
                                     blip_suspect.IsFriendly = false;
@@ -83,14 +83,14 @@ public class SuspectHandler
                                 break;
                             case Globals.PursuitEnd.GIVEUP:
                             default:
-                                Game.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
+                                HudHelpers.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
                                 GameFiber.Wait(3000);
-                                Game.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
+                                HudHelpers.DisplaySubtitle(Dialog, GameHandler.ini_displaytime);
                                 ped_suspect.Tasks.PlayAnimation("anim@move_m@prisoner_cuffed", "idle_intro", 1f, AnimationFlags.StayInEndFrame);
                                 blip_suspect.IsFriendly = false;
                                 GameFiber.Wait(3000);
                                 ped_suspect.Tasks.PlayAnimation("anim@move_m@prisoner_cuffed", "idle", 1f, AnimationFlags.Loop);
-                                Game.DisplaySubtitle("Arrest the Suspect", 4000);
+                                HudHelpers.DisplaySubtitle("Arrest the Suspect", 4000);
                                 loop = 10;
                                 break;
                         }
@@ -174,7 +174,7 @@ public class SuspectHandler
                         CarUnit.IsPersistent = false;
                         CarUnit.Dismiss();
                         PedUnit.Dismiss();
-                        Game.DisplaySubtitle(SuspectHandlerTranslation.TEXT[0]/*"Arrest the Suspect"*/, 4000);
+                        HudHelpers.DisplaySubtitle(SuspectHandlerTranslation.TEXT[0]/*"Arrest the Suspect"*/, 4000);
                     }, FiberHandler._fiber_request);
                     Loop = 10;
                     break;
@@ -192,11 +192,11 @@ public class SuspectHandler
         {
             Game.LocalPlayer.Character.Tasks.PlayAnimation("random@arrests", "generic_radio_chatter", 1f, AnimationFlags.UpperBodyOnly | AnimationFlags.SecondaryTask);
             GameFiber.Wait(2000);
-            Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ " + SuspectHandlerTranslation.TEXT[1]); //Dispatch, can i get a 10-28");
+            HudHelpers.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ " + SuspectHandlerTranslation.TEXT[1]); //Dispatch, can i get a 10-28");
             GameFiber.Wait(3000);
             GameHandler.DispatchMessage(AssistBeachTranslation.TEXT[1]);//"10-4, go ahead.");
             GameFiber.Wait(3000);
-            Game.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ " + SuspectHandlerTranslation.TEXT[2].Replace("{0}", $"~y~{CarType}~s~").Replace("{1}", $"~y~{LicencePlate}~s~")); 
+            HudHelpers.DisplayNotification("~b~" + Globals.CharacterName + ":~w~ " + SuspectHandlerTranslation.TEXT[2].Replace("{0}", $"~y~{CarType}~s~").Replace("{1}", $"~y~{LicencePlate}~s~")); 
             // The vehicle is going to be a ~y~{0}, license plate ~y~\" + LicencePlate
             Functions.PlayScannerAudio("TARGET_VEHICLE_LICENCE_PLATE " + Audio + "REPORT_RESPONSE_COPY_02");
             GameHandler.DispatchMessage(SuspectHandlerTranslation.TEXT[3]);//"10-12");
@@ -208,7 +208,7 @@ public class SuspectHandler
             GameHandler.DispatchMessage(SuspectHandlerTranslation.TEXT[4]/*"I have a vehicle match. The owner is ~y~"*/ + Name + SuspectHandlerTranslation.TEXT[5]/*"~w~, and lives at ~y~"*/ + _street);
             GameFiber.Wait(3000);
             Game.LocalPlayer.Character.Tasks.PlayAnimation("random@arrests", "generic_radio_chatter", 1f, AnimationFlags.UpperBodyOnly | AnimationFlags.SecondaryTask);
-            Game.DisplayNotification("~b~" + Globals.CharacterName + SuspectHandlerTranslation.TEXT[6]);//":~w~ 10-4. Show me 10-76 Code 2.");
+            HudHelpers.DisplayNotification("~b~" + Globals.CharacterName + SuspectHandlerTranslation.TEXT[6]);//":~w~ 10-4. Show me 10-76 Code 2.");
             GameFiber.Wait(3000);
             GameHandler.DispatchMessage(SuspectHandlerTranslation.TEXT[7]/*"10-4. Showing you 10-76. Respond to ~y~"*/ + _street + SuspectHandlerTranslation.TEXT[8]/*"~w~ Code 2."*/);
             Marker.Alpha = 1.0f;
@@ -225,11 +225,11 @@ public class SuspectHandler
         {
             Game.LocalPlayer.Character.Tasks.PlayAnimation("random@arrests", "generic_radio_chatter", 1f, AnimationFlags.UpperBodyOnly | AnimationFlags.SecondaryTask);
             GameFiber.Wait(2000);
-            Game.DisplayNotification("~b~" + Globals.CharacterName + SuspectHandlerTranslation.TEXT[9]);//":~w~ Dispatch, can i get a 10-28");
+            HudHelpers.DisplayNotification("~b~" + Globals.CharacterName + SuspectHandlerTranslation.TEXT[9]);//":~w~ Dispatch, can i get a 10-28");
             GameFiber.Wait(3000);
             GameHandler.DispatchMessage(SuspectHandlerTranslation.TEXT[18]);//"10-4, go ahead.");
             GameFiber.Wait(3000);
-            Game.DisplayNotification("~b~" + Globals.CharacterName + SuspectHandlerTranslation.TEXT[10]/*":~w~ The vehicle is going to be a ~y~"*/ + CarType + SuspectHandlerTranslation.TEXT[11]/*"~w~, license plate ~y~"*/ + LicencePlate);
+            HudHelpers.DisplayNotification("~b~" + Globals.CharacterName + SuspectHandlerTranslation.TEXT[10]/*":~w~ The vehicle is going to be a ~y~"*/ + CarType + SuspectHandlerTranslation.TEXT[11]/*"~w~, license plate ~y~"*/ + LicencePlate);
             Functions.PlayScannerAudio("TARGET_VEHICLE_LICENCE_PLATE " + Audio + "REPORT_RESPONSE_COPY_02");
             GameHandler.DispatchMessage(SuspectHandlerTranslation.TEXT[3]);//"10-12");
             GameFiber.Wait(7000);
@@ -238,14 +238,14 @@ public class SuspectHandler
             GameFiber.Wait(2000);
             Game.LocalPlayer.Character.Tasks.PlayAnimation("random@arrests", "generic_radio_chatter", 1f, AnimationFlags.UpperBodyOnly | AnimationFlags.SecondaryTask);
             GameFiber.Wait(2000);
-            Game.DisplayNotification("~b~" + Globals.CharacterName + SuspectHandlerTranslation.TEXT[13]);//":~w~ 10-4. Can i get a BOLO on that Vehicle?");
+            HudHelpers.DisplayNotification("~b~" + Globals.CharacterName + SuspectHandlerTranslation.TEXT[13]);//":~w~ 10-4. Can i get a BOLO on that Vehicle?");
             GameFiber.Wait(3000);
             GameHandler.DispatchMessage(SuspectHandlerTranslation.TEXT[14]);//"10-4. Informing all Units.");
             GameFiber.Wait(3000);
-            Game.DisplayNotification("~b~" + Globals.CharacterName + SuspectHandlerTranslation.TEXT[15]);//":~w~ I will search the surrounding area.");
+            HudHelpers.DisplayNotification("~b~" + Globals.CharacterName + SuspectHandlerTranslation.TEXT[15]);//":~w~ I will search the surrounding area.");
             GameFiber.Wait(2000);
             GameHandler.DispatchMessage(AssistBeachTranslation.TEXT[5]);//"10-4.");
-            Game.DisplaySubtitle(SuspectHandlerTranslation.TEXT[16]);//"Search the surrounding area for the suspect vehicle");
+            HudHelpers.DisplaySubtitle(SuspectHandlerTranslation.TEXT[16]);//"Search the surrounding area for the suspect vehicle");
             GameFiber.Yield();
         }, "Suspect Location Data");
     }
@@ -258,11 +258,11 @@ public class SuspectHandler
             {
                 Game.LocalPlayer.Character.Tasks.PlayAnimation("random@arrests", "generic_radio_chatter", 1f, AnimationFlags.UpperBodyOnly | AnimationFlags.SecondaryTask);
                 GameFiber.Wait(2000);
-                Game.DisplayNotification("~b~" + Globals.CharacterName + SuspectHandlerTranslation.TEXT[17]);//":~w~ Dispatch, i need a 10-28 on a partial plate.");
+                HudHelpers.DisplayNotification("~b~" + Globals.CharacterName + SuspectHandlerTranslation.TEXT[17]);//":~w~ Dispatch, i need a 10-28 on a partial plate.");
                 GameFiber.Wait(3000);
                 GameHandler.DispatchMessage(SuspectHandlerTranslation.TEXT[18]);//"10-4, go ahead.");
                 GameFiber.Wait(3000);
-                Game.DisplayNotification("~b~" + Globals.CharacterName + SuspectHandlerTranslation.TEXT[19]/*":~w~ The vehicle is going to be a ~y~"*/ + CarType + SuspectHandlerTranslation.TEXT[20]/*"~w~, license plate contains ~y~"*/ + LicencePlate);
+                HudHelpers.DisplayNotification("~b~" + Globals.CharacterName + SuspectHandlerTranslation.TEXT[19]/*":~w~ The vehicle is going to be a ~y~"*/ + CarType + SuspectHandlerTranslation.TEXT[20]/*"~w~, license plate contains ~y~"*/ + LicencePlate);
                 GameFiber.Wait(3000);
                 Functions.PlayScannerAudio("TARGET_VEHICLE_LICENCE_PLATE " + Audio + "REPORT_RESPONSE_COPY_02");
                 GameHandler.DispatchMessage(SuspectHandlerTranslation.TEXT[21]);//"10-12, running...");
@@ -275,7 +275,7 @@ public class SuspectHandler
                 GameHandler.DispatchMessage(SuspectHandlerTranslation.TEXT[22].Replace("{1}", Street1).Replace("{2}", Street2).Replace("{3}", Street3)); 
                 // "I have 3 possible matches from the system. ~n~ ~g~1. " + Street1 + ",~n~ ~p~2. " + Street2 + ",~n~ ~y~3. " + Street3
                 
-                Game.DisplaySubtitle(SuspectHandlerTranslation.TEXT[23].Replace("{1}", Street1).Replace("{2}", Street2).Replace("{3}", Street3), 20000);
+                HudHelpers.DisplaySubtitle(SuspectHandlerTranslation.TEXT[23].Replace("{1}", Street1).Replace("{2}", Street2).Replace("{3}", Street3), 20000);
                 // "Look at the map and locate the areas. ~n~Press 'NumPad1' to check~g~ " + Street1 + "~w~,~n~Press 'NumPad2' to check~p~ " + Street2 + "~w~,~n~Press 'NumPad3' to check ~y~ " + Street3
                 
             }, FiberHandler._fiber_request);

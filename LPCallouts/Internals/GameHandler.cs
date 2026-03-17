@@ -73,7 +73,7 @@ namespace LPCallouts.Internals
             string lang = ini.ReadString("GENERAL", "Language", "english");
             if (string.IsNullOrWhiteSpace(lang))
             {
-                Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Language~w~ is empty, default value loaded");
+                HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Language~w~ is empty, default value loaded");
                 Game.LogTrivial("~r~LPCallouts~w~ ini file error: ~y~Language~w~ is empty, default value loaded");
             }
             else
@@ -89,7 +89,7 @@ namespace LPCallouts.Internals
             string unit = ini.ReadString("UNIT", "Division", "07");
             if (string.IsNullOrWhiteSpace(unit))
             {
-                Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Division~w~ is empty, default value loaded");
+                HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Division~w~ is empty, default value loaded");
             }
             else
             {
@@ -101,7 +101,7 @@ namespace LPCallouts.Internals
                 else
                 {
                     ini_division_p = "07";
-                    Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Division~w~ is invalid or out of range, default value loaded");
+                    HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Division~w~ is invalid or out of range, default value loaded");
                 }
             }
             #endregion division
@@ -111,7 +111,7 @@ namespace LPCallouts.Internals
             string unittype = ini.ReadString("UNIT", "UnitType", "ADAM");
             if (string.IsNullOrWhiteSpace(unittype))
             {
-                Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~UnitType~w~ is empty, default value loaded");
+                HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~UnitType~w~ is empty, default value loaded");
             }
             else
             {
@@ -147,7 +147,7 @@ namespace LPCallouts.Internals
                         break;
                     default:
                         ini_unittype_p = "LINCOLN";
-                        Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~UnitType~w~ is invalid or not existing, default value loaded");
+                        HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~UnitType~w~ is invalid or not existing, default value loaded");
                         break;
                 }
             }
@@ -158,7 +158,7 @@ namespace LPCallouts.Internals
             string beat = ini.ReadString("UNIT", "Beat", "18");
             if (string.IsNullOrWhiteSpace(beat))
             {
-                Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Beat~w~ is empty, default value loaded");
+                HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Beat~w~ is empty, default value loaded");
             }
             else
             {
@@ -170,7 +170,7 @@ namespace LPCallouts.Internals
                 else
                 {
                     ini_beat_p = "18";
-                    Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Beat~w~ is invalid or out of range, default value loaded");
+                    HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Beat~w~ is invalid or out of range, default value loaded");
                 }
             }
             #endregion beat
@@ -182,7 +182,7 @@ namespace LPCallouts.Internals
                 string unit_2 = ini.ReadString("BACKUP_UNITS", "U2_Division", "07");
 
                 if (string.IsNullOrWhiteSpace(unit_1))
-                    Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Division~w~ is empty, default value loaded");
+                    HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Division~w~ is empty, default value loaded");
                 else
                 {
                     int readdivision_1 = Int32.Parse(unit_1);
@@ -191,12 +191,12 @@ namespace LPCallouts.Internals
                     else
                     {
                         ini_division_1 = "07";
-                        Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Division~w~ is invalid or out of range, default value loaded");
+                        HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Division~w~ is invalid or out of range, default value loaded");
                     }
                 }
 
                 if (string.IsNullOrWhiteSpace(unit_2))
-                    Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Division~w~ is empty, default value loaded");
+                    HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Division~w~ is empty, default value loaded");
                 else
                 {
                     int readdivision_2 = Int32.Parse(unit_2);
@@ -205,7 +205,7 @@ namespace LPCallouts.Internals
                     else
                     {
                         ini_division_2 = "07";
-                        Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Division~w~ is invalid or out of range, default value loaded");
+                        HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Division~w~ is invalid or out of range, default value loaded");
                     }
                 }
             #endregion
@@ -214,7 +214,7 @@ namespace LPCallouts.Internals
             string unittype_1 = ini.ReadString("BACKUP_UNITS", "U1_UnitType", "ADAM");
             string unittype_2 = ini.ReadString("BACKUP_UNITS", "U2_UnitType", "ADAM");
             if (string.IsNullOrWhiteSpace(unittype_1))
-                Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~UnitType~w~ is empty, default value loaded");
+                HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~UnitType~w~ is empty, default value loaded");
             else
                 switch (unittype_1)
                 {
@@ -248,12 +248,12 @@ namespace LPCallouts.Internals
                         break;
                     default:
                         ini_unittype_1 = "ADAM";
-                        Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~UnitType~w~ is invalid or not existing, default value loaded");
+                        HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~UnitType~w~ is invalid or not existing, default value loaded");
                         break;
             }
 
             if (string.IsNullOrWhiteSpace(unittype_2))
-                Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~UnitType~w~ is empty, default value loaded");
+                HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~UnitType~w~ is empty, default value loaded");
             else
                 switch (unittype_2)
                 {
@@ -287,7 +287,7 @@ namespace LPCallouts.Internals
                         break;
                     default:
                         ini_unittype_2 = "ADAM";
-                        Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~UnitType~w~ is invalid or not existing, default value loaded");
+                        HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~UnitType~w~ is invalid or not existing, default value loaded");
                         break;
                 }
             #endregion
@@ -297,7 +297,7 @@ namespace LPCallouts.Internals
             string beat_2 = ini.ReadString("BACKUP_UNITS", "U2_Beat", "15");
 
             if (string.IsNullOrWhiteSpace(beat_1))
-                Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Beat~w~ is empty, default value loaded");
+                HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Beat~w~ is empty, default value loaded");
             else
             {
                 int readbeat_1 = Int32.Parse(beat_1);
@@ -306,12 +306,12 @@ namespace LPCallouts.Internals
                 else
                 {
                     ini_beat_1 = "07";
-                    Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Beat~w~ is invalid or out of range, default value loaded");
+                    HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Beat~w~ is invalid or out of range, default value loaded");
                 }
             }
 
             if (string.IsNullOrWhiteSpace(beat_2))
-                Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Beat~w~ is empty, default value loaded");
+                HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Beat~w~ is empty, default value loaded");
             else
             {
                 int readbeat_2 = Int32.Parse(beat_2);
@@ -320,7 +320,7 @@ namespace LPCallouts.Internals
                 else
                 {
                     ini_beat_2 = "15";
-                    Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Beat~w~ is invalid or out of range, default value loaded");
+                    HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Beat~w~ is invalid or out of range, default value loaded");
                 }
             }
             #endregion
@@ -333,7 +333,7 @@ namespace LPCallouts.Internals
             string department = ini.ReadString("UNIT", "Department", "1");
             if (string.IsNullOrWhiteSpace(department))
             {
-                Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Department~w~ is empty, default value loaded");
+                HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Department~w~ is empty, default value loaded");
             }
             else
             {
@@ -366,7 +366,7 @@ namespace LPCallouts.Internals
                 else
                 {
                     ini_department = 1;
-                    Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Department~w~ is invalid or out of range, default value loaded");
+                    HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Department~w~ is invalid or out of range, default value loaded");
                 }
             }
             #endregion department
@@ -377,11 +377,11 @@ namespace LPCallouts.Internals
                 string actionkey = ini.ReadString("KEYBINDING", "ActionKey", "Y");
                 if (string.IsNullOrWhiteSpace(actionkey))
                 {
-                    Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Actionkey~w~ is empty, default value 'Y' loaded");
+                    HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Actionkey~w~ is empty, default value 'Y' loaded");
                 }
                 else if (!Regex.IsMatch(actionkey, @"^[A-Z0-9]+$"))
                 {
-                    Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Actionkey~w~ value is invalid (A-Z 0-9), default value 'Y' loaded");
+                    HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Actionkey~w~ value is invalid (A-Z 0-9), default value 'Y' loaded");
                 }
                 else
                 {
@@ -391,7 +391,7 @@ namespace LPCallouts.Internals
             }
             catch
             {
-                Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Actionkey~w~ is invalid, default value 'Y' loaded");
+                HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Actionkey~w~ is invalid, default value 'Y' loaded");
                 ini_action = Keys.Y;
             }
             #endregion actionkey
@@ -402,7 +402,7 @@ namespace LPCallouts.Internals
                 string menukey = ini.ReadString("KEYBINDING", "MenuKey", "F11");
                 if (string.IsNullOrWhiteSpace(menukey))
                 {
-                    Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~MenuKey~w~ is empty, default value 'F11' loaded");
+                    HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~MenuKey~w~ is empty, default value 'F11' loaded");
                 }
                 else
                 {
@@ -424,7 +424,7 @@ namespace LPCallouts.Internals
                             ini_menu = (Keys)kc_menu.ConvertFromString(menukey);
                             break;
                         default:
-                            Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~MenuKey~w~ value is invalid (F1-F12), default value 'F11' loaded");
+                            HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~MenuKey~w~ value is invalid (F1-F12), default value 'F11' loaded");
                             ini_menu = Keys.F11;
                             break;
                     }
@@ -432,7 +432,7 @@ namespace LPCallouts.Internals
             }
             catch
             {
-                Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~MenuKey~w~ is invalid, default value 'F11' loaded");
+                HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~MenuKey~w~ is invalid, default value 'F11' loaded");
                 ini_menu = Keys.F11;
             }
             #endregion menukey
@@ -443,7 +443,7 @@ namespace LPCallouts.Internals
                 string menumodkey = ini.ReadString("KEYBINDING", "MenuModifier", "NONE");
                 if (string.IsNullOrWhiteSpace(menumodkey))
                 {
-                    Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Menu Modifier Key~w~ is empty, default value 'NONE' loaded");
+                    HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Menu Modifier Key~w~ is empty, default value 'NONE' loaded");
                 }
                 else
                 {
@@ -471,7 +471,7 @@ namespace LPCallouts.Internals
                             ini_menu_mod = Keys.None;
                             break;
                         default:
-                            Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Menu Modifier Key~w~ value is invalid, default value 'NONE' loaded");
+                            HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Menu Modifier Key~w~ value is invalid, default value 'NONE' loaded");
                             ini_menu_mod = Keys.None;
                             break;
                     }
@@ -479,7 +479,7 @@ namespace LPCallouts.Internals
             }
             catch
             {
-                Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Menu Modifier Key~w~ value read error, default value 'NONE' loaded");
+                HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Menu Modifier Key~w~ value read error, default value 'NONE' loaded");
                 ini_menu_mod = Keys.None;
             }
             #endregion menu modifier key
@@ -489,7 +489,7 @@ namespace LPCallouts.Internals
             string spawnradius = ini.ReadString("SCENE", "SpawnRadius", "1500");
             if (string.IsNullOrWhiteSpace(spawnradius))
             {
-                Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~SpawnRadius~w~ is empty, default value loaded");
+                HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~SpawnRadius~w~ is empty, default value loaded");
             }
             else
             {
@@ -501,7 +501,7 @@ namespace LPCallouts.Internals
                 else
                 {
                     ini_radius = 1500f;
-                    Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~SpawnRadius~w~ is invalid or out of range, default value loaded");
+                    HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~SpawnRadius~w~ is invalid or out of range, default value loaded");
                 }
             }
             #endregion
@@ -539,7 +539,7 @@ namespace LPCallouts.Internals
                     break;
                 default:
                     ini_custommodels = false;
-                    Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~RDE Value~w~ is invalid or out of range, default value loaded");
+                    HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~RDE Value~w~ is invalid or out of range, default value loaded");
                     break;
             }
             #endregion 
@@ -549,7 +549,7 @@ namespace LPCallouts.Internals
             string _time = ini.ReadString("DISPLAYTIME", "TextTime", "6");
             if (string.IsNullOrWhiteSpace(_time))
             {
-                Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~TextTime~w~ is empty, default value loaded");
+                HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~TextTime~w~ is empty, default value loaded");
             }
             else
             {
@@ -561,7 +561,7 @@ namespace LPCallouts.Internals
                 else
                 {
                     ini_displaytime = 6000;
-                    Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~TextTime~w~ is invalid or out of range, default value loaded");
+                    HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~TextTime~w~ is invalid or out of range, default value loaded");
                 }
             }
             #endregion 
@@ -580,7 +580,7 @@ namespace LPCallouts.Internals
                 }
                 catch
                 {
-                    Game.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Department~w~ value could not be written, check access rights on ini file");
+                    HudHelpers.DisplayNotification("~r~LPCallouts~w~ ini file error: ~y~Department~w~ value could not be written, check access rights on ini file");
                 }
                 DispatchMessage("10-4, " + ini_division_p + "-" + ini_unittype_p + "-" + ini_beat_p + " is 10-8.");
                 GameFiber.Yield();
@@ -739,25 +739,25 @@ namespace LPCallouts.Internals
             switch (ini_department)
             {
                 case 1:
-                    Game.DisplayNotification("web_lossantospolicedept", "web_lossantospolicedept", "Los Santos Police~w~", "~y~DISPATCH~w~", _text);
+                    HudHelpers.DisplayNotification("web_lossantospolicedept", "web_lossantospolicedept", "Los Santos Police~w~", "~y~DISPATCH~w~", _text);
                     break;
                 case 2:
-                    Game.DisplayNotification("3dtextures", "mpgroundlogo_cops", "Los Santos Sheriff~w~", "~b~DISPATCH~w~", _text);
+                    HudHelpers.DisplayNotification("3dtextures", "mpgroundlogo_cops", "Los Santos Sheriff~w~", "~b~DISPATCH~w~", _text);
                     break;
                 case 3:
-                    Game.DisplayNotification("dia_police", "dia_police", "Los Santos County~w~", "~g~DISPATCH~w~", _text);
+                    HudHelpers.DisplayNotification("dia_police", "dia_police", "Los Santos County~w~", "~g~DISPATCH~w~", _text);
                     break;
                 case 4:
-                    Game.DisplayNotification("dia_police", "dia_police", "Blaine County~w~", "~o~DISPATCH~w~", _text);
+                    HudHelpers.DisplayNotification("dia_police", "dia_police", "Blaine County~w~", "~o~DISPATCH~w~", _text);
                     break;
                 case 5:
-                    Game.DisplayNotification("char_call911", "char_call911", "Highway Patrol~w~", "~p~DISPATCH~w~", _text);
+                    HudHelpers.DisplayNotification("char_call911", "char_call911", "Highway Patrol~w~", "~p~DISPATCH~w~", _text);
                     break;
                 case 6:
-                    Game.DisplayNotification("char_call911", "char_call911", "Park Rangers~w~", "~r~DISPATCH~w~", _text);
+                    HudHelpers.DisplayNotification("char_call911", "char_call911", "Park Rangers~w~", "~r~DISPATCH~w~", _text);
                     break;
                 default:
-                    Game.DisplayNotification("3dtextures", "mpgroundlogo_cops", "San Andreas Police~w~", "~c~DISPATCH~w~", _text);
+                    HudHelpers.DisplayNotification("3dtextures", "mpgroundlogo_cops", "San Andreas Police~w~", "~c~DISPATCH~w~", _text);
                     break;
             }
         }
@@ -768,39 +768,39 @@ namespace LPCallouts.Internals
             {
                 //PLAYER
                 case 1:
-                    Game.DisplaySubtitle("~b~" + Globals.CharacterName + ":~w~ " + text, displaytime);
+                    HudHelpers.DisplaySubtitle("~b~" + Globals.CharacterName + ":~w~ " + text, displaytime);
                     break;
                 //OFFICER
                 case 2:
-                    Game.DisplaySubtitle("~g~Officer:~w~ " + text, displaytime);
+                    HudHelpers.DisplaySubtitle("~g~Officer:~w~ " + text, displaytime);
                     break;
                 //WITNESS
                 case 3:
-                    Game.DisplaySubtitle("~y~Witness:~w~ " + text, displaytime);
+                    HudHelpers.DisplaySubtitle("~y~Witness:~w~ " + text, displaytime);
                     break;
                 //VICTIM
                 case 4:
-                    Game.DisplaySubtitle("~y~Victim:~w~ " + text, displaytime);
+                    HudHelpers.DisplaySubtitle("~y~Victim:~w~ " + text, displaytime);
                     break;
                 //CIVILIAN
                 case 5:
-                    Game.DisplaySubtitle("~y~Civilian:~w~ " + text, displaytime);
+                    HudHelpers.DisplaySubtitle("~y~Civilian:~w~ " + text, displaytime);
                     break;
                 //PARAMEDIC
                 case 6:
-                    Game.DisplaySubtitle("~g~Paramedic:~w~ " + text, displaytime);
+                    HudHelpers.DisplaySubtitle("~g~Paramedic:~w~ " + text, displaytime);
                     break;
                 //CALLER
                 case 7:
-                    Game.DisplaySubtitle("~y~Caller:~w~ " + text, displaytime);
+                    HudHelpers.DisplaySubtitle("~y~Caller:~w~ " + text, displaytime);
                     break;
                 //OWNER
                 case 8:
-                    Game.DisplaySubtitle("~y~Owner:~w~ " + text, displaytime);
+                    HudHelpers.DisplaySubtitle("~y~Owner:~w~ " + text, displaytime);
                     break;
                 //OWNER
                 case 9:
-                    Game.DisplaySubtitle("~r~Suspect:~w~ " + text, displaytime);
+                    HudHelpers.DisplaySubtitle("~r~Suspect:~w~ " + text, displaytime);
                     break;
             }
 
@@ -963,7 +963,7 @@ namespace LPCallouts.Internals
                             Globals.SuspectPositions _gotopos = Suspects.SuspectPositions.First(t => t._id == Ending && t._type == Globals.PositionType.PED_WAIT);
                             Person.Tasks.GoStraightToPosition(_gotopos._position, 1.0f, _gotopos._heading, 2f, 5000);
                             GameFiber.Wait(5500);
-                            Game.DisplaySubtitle("Talk to the driver by pressing ~o~'" + GameHandler.ini_action.ToString() + "", 5000);
+                            HudHelpers.DisplaySubtitle("Talk to the driver by pressing ~o~'" + GameHandler.ini_action.ToString() + "", 5000);
                             Person.Tasks.PlayAnimation("amb@code_human_police_investigate@idle_a", "idle_b", 1f, AnimationFlags.Loop);
                         }, FiberHandler._fiber_request);
                         GameHandler.RemoveBlip(CopMarker, BlipList);

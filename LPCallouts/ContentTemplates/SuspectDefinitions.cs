@@ -2918,7 +2918,7 @@ public class Suspects
 		}
 		catch (Exception ex)
 		{
-			Game.DisplayNotification("~r~LPCallouts~w~ Content Error: ~y~SuspectDefintions~w~ could not be generated");
+			HudHelpers.DisplayNotification("~r~LPCallouts~w~ Content Error: ~y~SuspectDefintions~w~ could not be generated");
 			Game.LogTrivial(ex.ToString());
 		}
 	}

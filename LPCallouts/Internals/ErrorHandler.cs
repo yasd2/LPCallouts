@@ -7,7 +7,7 @@ public class ErrorHandler
 {
     public static void LogMessage(string message, int errornumber)
     {
-        Game.DisplayHelp("~o~[LPCallouts ERROR:~b~ " + errornumber + "~o~]~w~ Please check RageLog File in GTA5 Directory/logs for details!");
+        HudHelpers.DisplayHelp("~o~[LPCallouts ERROR:~b~ " + errornumber + "~o~]~w~ Please check RageLog File in GTA5 Directory/logs for details!");
         Game.LogTrivial("[LPCallouts v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + "], [ERROR: " + errornumber + "]:" + message);
     }
 

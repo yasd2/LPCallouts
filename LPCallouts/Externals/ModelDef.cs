@@ -7,6 +7,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using Rage;
+using LPCallouts.Internals;
 
 namespace LPCallouts.Externals
 {
@@ -79,7 +80,7 @@ namespace LPCallouts.Externals
             }
             catch(Exception ex)
             {
-                Game.DisplayNotification("~r~LPCallouts~w~ xml file error: ~y~ModelDefintions~w~ could not be loaded from XML File");
+                HudHelpers.DisplayNotification("~r~LPCallouts~w~ xml file error: ~y~ModelDefintions~w~ could not be loaded from XML File");
                 Game.LogTrivial(ex.ToString());
             }
         }

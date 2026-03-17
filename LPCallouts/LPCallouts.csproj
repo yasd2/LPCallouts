@@ -107,6 +107,7 @@
     <Compile Include="Internals\FiberHandler.cs" />
     <Compile Include="Internals\GameHandler.cs" />
     <Compile Include="Internals\Globals.cs" />
+    <Compile Include="Internals\HudHelpers.cs" />
     <Compile Include="Internals\SuspectHandler.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Internals\Menu.cs" />
